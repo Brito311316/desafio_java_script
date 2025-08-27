@@ -9,8 +9,19 @@ body {
 html {
     height: 100%;
 }
+#carousel {
+    text-align: center; /* centraliza elementos inline (como <a>) */
+}
 
-div#carousel {
+#carousel img {
+    display: block;      /* transforma em bloco */
+    margin: 0 auto;      /* centraliza horizontalmente */
+    max-width: 70%;    /* largura máxima */
+    width: 100%;         /* responsivo */
+   height:auto;
+}
+
+div#carousel {    
     height: 67vh;
     width: 100%;
      max-height: 628px;

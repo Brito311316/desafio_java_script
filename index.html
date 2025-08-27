@@ -7,7 +7,6 @@
     <title>Ford</title>    
     <link href="css/reset.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <script src="js/carousel.js"></script>
 </head>
 <body>
     <header>       
@@ -35,11 +34,58 @@
         <div id="carousel-title">
         </div>
         <script>
+             class Carousel {
+                constructor(image, title, link) {
+                    this.image = image;
+                    this.title = title;
+                    this.link = link;
+                }
+
+                static Start(items, interval = 3000) {
+                    const carouselDiv = document.getElementById("carousel");
+                    const titleDiv = document.getElementById("carousel-title");
+          
+                    let index = 0;
+
+                    function showItem(i) {
+                        carouselDiv.innerHTML = "";
+                        titleDiv.innerHTML = "";
+
+                        const item = items[i];
+
+                        const img = document.createElement("img");
+                        img.src = item.image;
+                        img.alt = item.title;
+
+                        const a = document.createElement("a");
+                        a.href = item.link;
+                        a.textContent = item.title;
+                        a.style.display = "block";
+
+                        carouselDiv.appendChild(img);
+                        titleDiv.appendChild(a);
+                    }
+
+                    // Mostra o primeiro item
+                    showItem(index);
+
+                    // Troca de imagem automaticamente
+                    setInterval(() => {
+                        index = (index + 1) % items.length; // loop infinito
+                        showItem(index);
+                    }, interval);
+                }
+            }
+
+
+
+                let carouselArr = [];
              //insert each image on carousel
-            carouselArr.push(new Carousel("imagem_1.jpg","Esta é a nova Ranger Ford 2022. Verifique novidades.","lancamento.html"));
-            carouselArr.push(new Carousel("imagem_2.jpg","Ford a nossa história","#"));
-            carouselArr.push(new Carousel("imagem_3.jpg","Nova Ford Bronco Sport 2022","lancamento.html"));
-            Carousel.Start(carouselArr);
+            carouselArr.push(new Carousel("img/imagem_1.jpg","Esta é a nova Ranger Ford 2022. Verifique novidades.","/"));
+            carouselArr.push(new Carousel("img/imagem_2.jpg","Ford a nossa história","imagem_2.jpg"));
+            carouselArr.push(new Carousel("img/imagem_3.jpg","Nova Ford Bronco Sport 2022","lancamento.html"));
+           
+            Carousel.Start(carouselArr, 3000);
         </script>
     </main>
     <footer>
