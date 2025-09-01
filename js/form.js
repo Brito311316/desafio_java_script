@@ -2,36 +2,64 @@
 //class contato
 
 class contato {
-   constructor(nome, email, telefone, tipo, mensagem){
+   constructor(nome, email, telefone, tipo, mensagem, aceitouTermos, aceitouNewsletter){
     this.nome = nome;
     this.email = email;
     this.telefone = telefone;
     this.tipo = tipo;
     this.mensagem = mensagem;
+
+    this.aceitouTermos = aceitouTermos;
+    this.aceitouNewsletter = aceitouNewsletter;
+
    } 
 }
+function validarEnvio(){
+    const termosCheckbox = document.getElementById("termosCheckbox");
+    const enviarBtn = document.getElementById("enviarBtn");
+
+    enviarBtn.disabled = !termosCheckbox.checked;
+
+}
+
 
 function Post(form) {
+
+    const termosCheckbox = document.getElementById("termosCheckbox");
+    const newsletterCheckbox = document.getElementById("newsletter");
+
+    if(!termosCheckbox.checked){
+        alert("Por favor, aceite os termos e Condições para enviar o formulário.");
+        return false;
+    }
 
   let data = new contato(form.elements.namedItem("nome").value,            
             form.elements.namedItem("email").value,             
             form.elements.namedItem("telefone").value, 
             form.elements.namedItem("tipo").value,              
-            form.elements.namedItem("mensagem").value);
-  
+            form.elements.namedItem("mensagem").value,
+           
+            termosCheckbox.checked,
+            newsletterCheckbox.checked 
+    );
+
        console.log("Dados do formulario:", data);
        
        alert(`Obrigado, ${data.nome}! Sua mensagem de ${data.tipo} foi enviada com sucesso.`);
 
+     termosCheckbox.checked = false;
+     newsletterCheckbox.checked = false;
+
+      validarEnvio();
+
       form.reset(); 
 }
 
-function Enviar() {
+     document.addEventListener('DOMContentLoaded', function(){
+        validarEnvio();
+     })
 
-    var nome = document.getElementById("nomeid");
 
-    if (nome.value != "") {
-        alert('Obrigado sr(a) ' + nome.value + ' os seus dados foram encaminhados com sucesso');
-    }
+   
 
 }
